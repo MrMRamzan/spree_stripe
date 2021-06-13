@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_12_210724) do
+ActiveRecord::Schema.define(version: 2021_06_13_095316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1181,6 +1181,24 @@ ActiveRecord::Schema.define(version: 2021_06_12_210724) do
     t.string "kind", default: "state"
     t.index ["default_tax"], name: "index_spree_zones_on_default_tax"
     t.index ["kind"], name: "index_spree_zones_on_kind"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "pricing_plan_id"
+    t.boolean "cancel_at_period_end", default: false
+    t.datetime "canceled_at"
+    t.datetime "current_period_end"
+    t.datetime "current_period_start"
+    t.datetime "ended_at"
+    t.datetime "start"
+    t.string "status", default: "active"
+    t.datetime "trial_end"
+    t.datetime "trial_start"
+    t.bigint "user_id"
+    t.integer "amount", default: 0
+    t.string "stripe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
